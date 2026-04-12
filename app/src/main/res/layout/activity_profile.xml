@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4.5">
+
+        <!--bg -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- top orange part -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#EB5600">
+
+                <ImageView
+                    android:id="@+id/logoImage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/logo" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3.5"
+                android:background="@android:color/white"
+                android:paddingTop="80dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnEditProfile"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:backgroundTint="#D15E00"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="14dp"
+                    android:text="Change Picture"
+                    android:textAlignment="center"
+                    android:textColor="@color/white">
+                </Button>
+                
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="15dp">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Full Name"
+                        android:textStyle="bold"
+                        android:paddingStart="20dp">
+
+                    </TextView>
+
+                    <EditText
+                        android:id="@+id/etProfileName"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Text"
+                        android:padding="8dp">
+
+                    </EditText>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="15dp">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Email"
+                        android:textStyle="bold"
+                        android:paddingStart="20dp">
+
+                    </TextView>
+
+                    <EditText
+                        android:id="@+id/etEmail"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:hint="example@mail.com"
+                        android:padding="8dp">
+
+                    </EditText>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="15dp">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Date of Birth"
+                        android:textStyle="bold"
+                        android:textSize="13dp"
+                        android:paddingStart="20dp">
+
+                    </TextView>
+
+                    <EditText
+                        android:id="@+id/etBirthDate"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Text"
+                        android:padding="8dp">
+
+                    </EditText>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="15dp"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Contact No."
+                        android:textStyle="bold"
+                        android:paddingStart="20dp">
+
+                    </TextView>
+
+                    <EditText
+                        android:id="@+id/etPhoneNumber"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:hint="0XXX-XXX-XXXX"
+                        android:padding="8dp">
+
+                    </EditText>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnSaveProfile"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:backgroundTint="#D15E00"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="14dp"
+                    android:text="Save Changes"
+                    android:textAlignment="center"
+                    android:textColor="@color/white">
+                </Button>
+
+                <Button
+                    android:id="@+id/btnProfileLogOut"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:backgroundTint="#D15E00"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="14dp"
+                    android:text="Log Out"
+                    android:textAlignment="center"
+                    android:textColor="@color/white">
+                </Button>
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginTop="95dp"
+            android:background="@drawable/circle_bg"
+            android:scaleType="centerCrop"
+            android:src="@drawable/outline_account_circle_24" />
+
+    </FrameLayout>
+
+    <!-- Bottom Nav Bar -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#D15E00"
+        app:menu="@menu/bottom_nav_menu" />
+
+
+</LinearLayout>
