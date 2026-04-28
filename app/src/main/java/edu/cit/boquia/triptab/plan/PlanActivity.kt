@@ -76,7 +76,7 @@ class PlanActivity : AppCompatActivity() {
     }
 
     private fun calculateTotals() {
-        // We will add the math logic here in the next step!
+        // math logic
     }
     // actual function to save the plan
     private fun savePlan() {
