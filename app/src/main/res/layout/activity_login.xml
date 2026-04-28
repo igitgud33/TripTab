@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:contentDescription="app logo"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="175dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/logo">
+    </ImageView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        android:padding="13dp"
+        android:layout_weight="1"
+        android:background="#FF8400"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="@string/login"
+            android:textSize="45sp"
+            android:textStyle="bold"
+            android:textColor="@color/white">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="65dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/don_t_have_an_account"
+                android:layout_marginStart="6dp"
+                android:textColor="@color/white">
+            </TextView>
+
+            <Button
+                android:id="@+id/btnSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_up"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textAlignment="textStart"
+                android:background="@android:color/transparent">
+            </Button>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="25dp"
+            android:text="@string/email"
+            android:textSize="15sp"
+            android:textColor="@color/white">
+        </TextView>
+
+        <EditText
+            android:id="@+id/loginEmail"
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:inputType="textEmailAddress"
+            android:maxLength="50">
+
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="25dp"
+            android:text="Password"
+            android:textSize="15sp"
+            android:textColor="@color/white">
+        </TextView>
+
+        <EditText
+            android:id="@+id/loginPassword"
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:inputType="textPassword"
+            android:maxLength="20">
+
+        </EditText>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:paddingVertical="12dp"
+            >
+
+
+            <View
+                android:layout_width="15sp"
+                android:layout_height="15sp"
+                android:layout_marginTop="3dp"
+                android:background="@color/white">
+
+            </View>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Remember me"
+                android:layout_marginStart="6dp"
+                android:textColor="@color/white">
+            </TextView>
+
+
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:backgroundTint="#D15E00"
+            android:padding="15dp"
+            android:text="Log In"
+            android:textAlignment="center"
+            android:textColor="@color/white">
+        </Button>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            >
+
+            <View
+                android:layout_width="110dp"
+                android:layout_height="2sp"
+                android:layout_marginTop="3dp"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                tools:ignore="SmallSp">
+
+            </View>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:text="Or"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textStyle="bold">
+            </TextView>
+
+            <View
+                android:layout_width="110dp"
+                android:layout_height="2sp"
+                android:layout_marginTop="3dp"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                tools:ignore="SmallSp">
+
+            </View>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnGoogle"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="@android:color/white"
+            android:layout_marginTop="15dp"
+            android:padding="15dp"
+            android:text="Continue with Google"
+            android:textAlignment="center"
+            android:textColor="@color/black">
+        </Button>
+
+        <Button
+            android:id="@+id/btnFacebook"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="@android:color/white"
+            android:layout_marginTop="15dp"
+            android:padding="15dp"
+            android:text="Continue with Facebook"
+            android:textAlignment="center"
+            android:textColor="@color/black">
+        </Button>
+
+    </LinearLayout>
+
+
+</LinearLayout>
