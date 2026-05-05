@@ -1,10 +1,13 @@
-package edu.cit.boquia.triptab
+package edu.cit.boquia.triptab.screens.summary
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import edu.cit.boquia.triptab.R
+import edu.cit.boquia.triptab.screens.main.MainActivity
+import edu.cit.boquia.triptab.screens.profile.ProfileActivity
 
 class SummaryActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {

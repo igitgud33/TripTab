@@ -1,4 +1,4 @@
-package edu.cit.boquia.triptab.plan
+package edu.cit.boquia.triptab.screens.plan
 
     data class Plan (
         val id: String,

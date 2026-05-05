@@ -1,4 +1,4 @@
-package edu.cit.boquia.triptab
+package edu.cit.boquia.triptab.screens.profile
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,49 +7,33 @@ import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import edu.cit.boquia.triptab.R
+import edu.cit.boquia.triptab.app.CustomApp
+import edu.cit.boquia.triptab.data.User
+import edu.cit.boquia.triptab.screens.summary.SummaryActivity
+import edu.cit.boquia.triptab.screens.login.LoginActivity
+import edu.cit.boquia.triptab.screens.main.MainActivity
 
-class ProfileActivity : AppCompatActivity(){
+class ProfileActivity : AppCompatActivity(), ProfileContract.View {
+    private lateinit var profilePresenter: ProfilePresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_profile)
 
-        // to get data from MainActivity
-        val sharedPref = getSharedPreferences("TripTabPrefs", MODE_PRIVATE)
+        // init presenter
+        profilePresenter = ProfilePresenter(this, ProfileModel(application as CustomApp))
 
-        val name = sharedPref.getString("NAME", "")
-        val email = sharedPref.getString("EMAIL", "")
-        val birthDate = sharedPref.getString("BIRTHDATE", "")
-        val phoneNo = sharedPref.getString("PHONE", "")
-
-        // to get edit text ids from activity_profile.xml
-        val etName = findViewById<EditText>(R.id.etProfileName)
-        val etEmail = findViewById<EditText>(R.id.etEmail)
-        val etBirthDate = findViewById<EditText>(R.id.etBirthDate)
-        val etPhoneNo = findViewById<EditText>(R.id.etPhoneNumber)
-
-        // display data
-        etName.setText(name ?: "")
-        etEmail.setText(email ?: "")
-        etBirthDate.setText(birthDate ?: "")
-        etPhoneNo.setText(phoneNo ?: "")
+        // to display data from MainActivity
+        profilePresenter.loadUserData()
 
         val btnProfileLogOut = findViewById<Button>(R.id.btnProfileLogOut)
         btnProfileLogOut.setOnClickListener {
             // clears profile info from shared preferences
-            val editor = sharedPref.edit()
 
-            editor.clear()
-            editor.apply()
+            profilePresenter.logOut()
 
-            val intent = Intent(this, LoginActivity::class.java)
-
-            // clear back stack so user stays in Login
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
-            startActivity(intent)
-
-            finish()
         }
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav_profile)
@@ -81,6 +65,29 @@ class ProfileActivity : AppCompatActivity(){
             }
         }
 
+    }
+
+    override fun displayUserData(user: User) {
+        val etName = findViewById<EditText>(R.id.etProfileName)
+        val etEmail = findViewById<EditText>(R.id.etEmail)
+        val etBirthDate = findViewById<EditText>(R.id.etBirthDate)
+        val etPhoneNo = findViewById<EditText>(R.id.etPhoneNumber)
+
+        etName.setText(user.name)
+        etEmail.setText(user.email)
+        etBirthDate.setText(user.birthDate)
+        etPhoneNo.setText(user.phoneNo)
+    }
+
+    override fun toLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+
+        // clear back stack so user stays in Login
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+        startActivity(intent)
+
+        finish()
     }
 
 }

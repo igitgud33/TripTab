@@ -1,4 +1,4 @@
-package edu.cit.boquia.triptab.plan
+package edu.cit.boquia.triptab.screens.plan
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,10 +9,10 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import edu.cit.boquia.triptab.MainActivity
-import edu.cit.boquia.triptab.ProfileActivity
+import edu.cit.boquia.triptab.screens.main.MainActivity
+import edu.cit.boquia.triptab.screens.profile.ProfileActivity
 import edu.cit.boquia.triptab.R
-import edu.cit.boquia.triptab.SummaryActivity
+import edu.cit.boquia.triptab.screens.summary.SummaryActivity
 
 class PlanActivity : AppCompatActivity() {
 

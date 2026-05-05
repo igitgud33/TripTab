@@ -11,9 +11,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="175dp"
         android:layout_marginTop="15dp"
-        android:src="@drawable/logo">
-    </ImageView>
-
+        android:src="@drawable/logo" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,8 +30,7 @@
             android:text="@string/login"
             android:textSize="45sp"
             android:textStyle="bold"
-            android:textColor="@color/white">
-        </TextView>
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/tvWelcome"
@@ -54,8 +51,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/don_t_have_an_account"
                 android:layout_marginStart="6dp"
-                android:textColor="@color/white">
-            </TextView>
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/btnSignUp"
@@ -65,8 +61,7 @@
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textAlignment="textStart"
-                android:background="@android:color/transparent">
-            </Button>
+                android:background="@android:color/transparent" />
 
         </LinearLayout>
 
@@ -77,8 +72,7 @@
             android:layout_marginTop="25dp"
             android:text="@string/email"
             android:textSize="15sp"
-            android:textColor="@color/white">
-        </TextView>
+            android:textColor="@color/white" />
 
         <EditText
             android:id="@+id/loginEmail"
@@ -87,9 +81,8 @@
             android:layout_marginTop="10dp"
             android:background="@color/white"
             android:inputType="textEmailAddress"
-            android:maxLength="50">
-
-        </EditText>
+            android:maxLength="50"
+            android:padding="5dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -98,8 +91,7 @@
             android:layout_marginTop="25dp"
             android:text="Password"
             android:textSize="15sp"
-            android:textColor="@color/white">
-        </TextView>
+            android:textColor="@color/white" />
 
         <EditText
             android:id="@+id/loginPassword"
@@ -108,38 +100,9 @@
             android:layout_marginTop="10dp"
             android:background="@color/white"
             android:inputType="textPassword"
-            android:maxLength="20">
-
-        </EditText>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:paddingVertical="12dp"
-            >
-
-
-            <View
-                android:layout_width="15sp"
-                android:layout_height="15sp"
-                android:layout_marginTop="3dp"
-                android:background="@color/white">
-
-            </View>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Remember me"
-                android:layout_marginStart="6dp"
-                android:textColor="@color/white">
-            </TextView>
-
-
-
-        </LinearLayout>
+            android:maxLength="20"
+            android:padding="5dp"
+            android:layout_marginBottom="40dp"/>
 
 
         <Button
@@ -150,15 +113,13 @@
             android:padding="15dp"
             android:text="Log In"
             android:textAlignment="center"
-            android:textColor="@color/white">
-        </Button>
+            android:textColor="@color/white" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            >
+            android:layout_marginTop="20dp">
 
             <View
                 android:layout_width="110dp"
@@ -166,9 +127,7 @@
                 android:layout_marginTop="3dp"
                 android:layout_gravity="center"
                 android:background="@color/white"
-                tools:ignore="SmallSp">
-
-            </View>
+                tools:ignore="SmallSp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -178,8 +137,7 @@
                 android:text="Or"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textStyle="bold">
-            </TextView>
+                android:textStyle="bold" />
 
             <View
                 android:layout_width="110dp"
@@ -187,9 +145,7 @@
                 android:layout_marginTop="3dp"
                 android:layout_gravity="center"
                 android:background="@color/white"
-                tools:ignore="SmallSp">
-
-            </View>
+                tools:ignore="SmallSp" />
 
         </LinearLayout>
 
@@ -202,8 +158,7 @@
             android:padding="15dp"
             android:text="Continue with Google"
             android:textAlignment="center"
-            android:textColor="@color/black">
-        </Button>
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/btnFacebook"
@@ -214,8 +169,7 @@
             android:padding="15dp"
             android:text="Continue with Facebook"
             android:textAlignment="center"
-            android:textColor="@color/black">
-        </Button>
+            android:textColor="@color/black" />
 
     </LinearLayout>
 

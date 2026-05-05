@@ -1,14 +1,19 @@
-package edu.cit.boquia.triptab
+package edu.cit.boquia.triptab.screens.main
 
-import android.os.Bundle
 import android.content.Intent
+import android.os.Bundle
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import edu.cit.boquia.triptab.plan.PlanActivity
+import edu.cit.boquia.triptab.screens.profile.ProfileActivity
+import edu.cit.boquia.triptab.R
+import edu.cit.boquia.triptab.screens.login.LoginPresenter
+import edu.cit.boquia.triptab.screens.summary.SummaryActivity
+import edu.cit.boquia.triptab.screens.plan.PlanActivity
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

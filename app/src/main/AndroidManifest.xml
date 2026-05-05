@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".app.CustomApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -14,7 +15,7 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".screens.login.LoginActivity"
             android:exported="true">
 
             <!-- Intent Filter -->
@@ -24,15 +25,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".RegisterActivity"
+        <activity android:name=".screens.register.RegisterActivity"
             android:exported="true"/>
-        <activity android:name=".MainActivity"
+        <activity android:name=".screens.main.MainActivity"
             android:exported="true"/>
-        <activity android:name=".ProfileActivity"
+        <activity android:name=".screens.profile.ProfileActivity"
             android:exported="true"/>
-        <activity android:name=".SummaryActivity"
+        <activity android:name=".screens.summary.SummaryActivity"
             android:exported="true"/>
-        <activity android:name=".plan.PlanActivity"
+        <activity android:name=".screens.plan.PlanActivity"
             android:exported="true" />
     </application>
 
