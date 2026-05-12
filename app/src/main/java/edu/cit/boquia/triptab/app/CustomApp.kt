@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import edu.cit.boquia.triptab.data.User
 
+// holds data to be shared between activities
 class CustomApp: Application() {
 
     val loginUser = User()

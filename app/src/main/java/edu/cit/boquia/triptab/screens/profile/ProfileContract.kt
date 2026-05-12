@@ -2,7 +2,7 @@ package edu.cit.boquia.triptab.screens.profile
 
 import edu.cit.boquia.triptab.data.User
 
-class ProfileContract {
+interface ProfileContract {
     interface View {
         fun displayUserData(user: User)
         fun toLogin()
