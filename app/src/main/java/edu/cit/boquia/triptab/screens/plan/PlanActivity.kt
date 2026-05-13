@@ -164,7 +164,7 @@ class PlanActivity : AppCompatActivity(), PlanContract.View {
 
         // create Plan object
         val newPlan = Plan(
-            id = System.currentTimeMillis().toString(),
+            id = editingPlanId?: System.currentTimeMillis().toString(),
             name = name,
             destination = dest,
             description = desc,
@@ -174,8 +174,8 @@ class PlanActivity : AppCompatActivity(), PlanContract.View {
             expenses = expenseList
         )
 
-        // presenter save
-        planPresenter.handleSavePlan(newPlan)
+        // presenter save (checks if is in edit mode)
+        planPresenter.handleSavePlan(newPlan, editingPlanId != null)
 
     }
 

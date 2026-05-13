@@ -7,6 +7,6 @@ interface PlanContract {
     }
 
     interface Presenter {
-        fun handleSavePlan(plan: Plan)
+        fun handleSavePlan(plan: Plan, isEdited: Boolean)
     }
 }

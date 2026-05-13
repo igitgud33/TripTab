@@ -36,7 +36,7 @@ class PlanModel(app: CustomApp) {
         val index = allPlans.indexOfFirst {it.id == updatedPlan.id}
 
         if(index != -1) {
-            allPlans[index] = updatedPlan // replaces selected paln
+            allPlans[index] = updatedPlan // replaces selected plan
             val json = gson.toJson(allPlans)
             sharedPref.edit().putString("SAVED_PLANS", json).apply()
         }
