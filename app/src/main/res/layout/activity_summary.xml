@@ -63,14 +63,21 @@
 
         </LinearLayout>
 
-        <ImageView
+        <!--<ImageView
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_gravity="top|center_horizontal"
             android:layout_marginTop="95dp"
             android:background="@drawable/circle_bg"
             android:scaleType="centerCrop"
-            android:src="@drawable/outline_bar_chart_24" />
+            android:src="@drawable/outline_bar_chart_24" />-->
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/summaryPieChart"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"/>
 
     </FrameLayout>
 
