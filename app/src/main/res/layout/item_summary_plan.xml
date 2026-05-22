@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="12dp"
+    android:paddingHorizontal="40dp"
+    android:gravity="center_vertical">
+
+    <View
+        android:id="@+id/vPlanColor"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/circle_bg"/>
+
+    <TextView
+        android:id="@+id/tvPlanName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Plan Name"
+        android:textSize="15dp"
+        android:textStyle="bold"/>
+
+    <ImageView
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/baseline_arrow_back_24"
+        android:rotation="-90"
+        android:layout_marginEnd="16dp"
+        android:alpha="0.5"/>
+
+    <TextView
+        android:id="@+id/tvPlanValue"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="₱ 0.00"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="15dp"/>
+
+    <TextView
+        android:id="@+id/tvPlanPercent"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:text="0%"
+        android:gravity="end"
+        android:textColor="@color/black"
+        android:textSize="15dp"/>
+
+</LinearLayout>

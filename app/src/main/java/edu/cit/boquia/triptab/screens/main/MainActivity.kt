@@ -165,8 +165,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         card.findViewById<TextView>(R.id.tvPlanName).text = plan.name
 
         // budgets
-        card.findViewById<TextView>(R.id.tvRemainingBudget).text = "Remaining Budget: $remaining"
-        card.findViewById<TextView>(R.id.tvTotalBudget).text = "Total Budget: ${plan.totalBudget}"
+        card.findViewById<TextView>(R.id.tvRemainingBudget).text = "Remaining Budget: ${String.format("%.2f", remaining)}"
+        card.findViewById<TextView>(R.id.tvTotalBudget).text = "Total Budget: ${String.format("%.2f", plan.totalBudget)}"
 
         // dates
         card.findViewById<TextView>(R.id.tvStartingDate).text = "Starting Date: ${plan.startDate}"

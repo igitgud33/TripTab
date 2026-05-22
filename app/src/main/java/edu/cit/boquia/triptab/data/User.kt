@@ -8,5 +8,6 @@ data class User (
     var email: String = "",
     var birthDate: String = "",
     var phoneNo: String = "",
-    var password: String = ""
+    var password: String = "",
+    var profileImageUri: String? = null
     )
