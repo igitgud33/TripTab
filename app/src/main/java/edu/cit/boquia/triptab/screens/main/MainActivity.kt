@@ -16,24 +16,32 @@ import edu.cit.boquia.triptab.app.CustomApp
 import edu.cit.boquia.triptab.screens.plan.Plan
 import edu.cit.boquia.triptab.screens.summary.SummaryActivity
 import edu.cit.boquia.triptab.screens.plan.PlanActivity
+import edu.cit.boquia.triptab.screens.plan.PlanGroup
 import edu.cit.boquia.triptab.screens.plan.PlanModel
 import edu.cit.boquia.triptab.utils.toast
 import kotlin.collections.forEach
 
 class MainActivity : AppCompatActivity(), MainContract.View {
     private lateinit var mainPresenter: MainContract.Presenter
+    private lateinit var planModel: PlanModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        mainPresenter = MainPresenter(this, PlanModel(application as CustomApp))
+        planModel = PlanModel(application as CustomApp)
+        mainPresenter = MainPresenter(this, planModel)
 
 
         val btnPlan = findViewById<Button>(R.id.btnCreateNewPlan)
         btnPlan.setOnClickListener {
            toCreatePlan()
+        }
+
+        // group button
+        findViewById<Button>(R.id.btnCreateGroup).setOnClickListener {
+            showCreateGroupDialog()
         }
 
 
@@ -76,67 +84,55 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun displayPlans(plans: List<Plan>) {
-        val container = findViewById<LinearLayout>(R.id.containerUngroupedPlans)
-        val tvEmpty = findViewById<TextView>(R.id.tvNoUngroupedPlans)
+        // now considers both grouped & ungrouped
+        val groups = planModel.getAllGroups()
 
-        // clear previous cards
-        container.removeAllViews()
+        val groupedContainer = findViewById<LinearLayout>(R.id.containerGroupedPlans)
+        val ungroupedContainer = findViewById<LinearLayout>(R.id.containerUngroupedPlans)
 
-        // hide "No Plans" text
-        tvEmpty.visibility = android.view.View.GONE
+        groupedContainer.removeAllViews()
+        ungroupedContainer.removeAllViews()
 
-        // loop through each plan and make a card
-        plans.forEach { plan ->
-            // inflate card layout
-            val card = layoutInflater.inflate(R.layout.item_plan, container, false)
+        // find plan IDs already in group
+        val allGroupedIds = groups.flatMap { it.planIds }.toSet()
 
-            // progress bar logic
-            val spent = plan.expenses.sumOf { it.amount }
-            val remaining = plan.totalBudget - spent
-            val progressPercent = if (plan.totalBudget > 0.0) {
-                ((spent / plan.totalBudget) * 100).toInt()
-            } else {
-                0
-            }
+        // grouped plans display
+        if(groups.isNotEmpty()) {
+            findViewById<TextView>(R.id.tvNoGroupedPlans).visibility = android.view.View.GONE
+            groups.forEach { group ->
+                // inflate header
+                val groupHeader = layoutInflater.inflate(R.layout.item_group_header, groupedContainer, false)
+                groupHeader.findViewById<TextView>(R.id.tvGroupName).text = group.name
 
-            // bind cards
-            card.findViewById<TextView>(R.id.tvPlanName).text = plan.name
+                // for deleting group
+                groupHeader.findViewById<Button>(R.id.btnDeleteGroup).setOnClickListener {
+                    planModel.deleteGroup(group.id)
+                    mainPresenter.loadDashboard()
+                    toast("Group ${group.name} dissolved")
+                }
 
-            // budgets
-            card.findViewById<TextView>(R.id.tvRemainingBudget).text =
-                "Remaining Budget: $remaining"
-            card.findViewById<TextView>(R.id.tvTotalBudget).text =
-                "Total Budget: ${plan.totalBudget}"
+                groupedContainer.addView(groupHeader)
 
-            // dates
-            card.findViewById<TextView>(R.id.tvStartingDate).text =
-                "Starting Date: ${plan.startDate}"
-            card.findViewById<TextView>(R.id.tvEndDate).text = "End Date: ${plan.endDate}"
+                // add cards belonging to this group
+                plans.filter {it.id in group.planIds}.forEach { plan ->
+                    val card = createPlanCard(plan, groupedContainer)
+                    groupedContainer.addView(card)
+                }
 
-            // pb
-            val pb = card.findViewById<ProgressBar>(R.id.pbBudget)
-            pb.progress = progressPercent
-
-            // add card to screen
-            container.addView(card)
-
-
-            // edit click
-            card.setOnClickListener {
-                val intent = Intent(this, PlanActivity::class.java)
-                intent.putExtra("PLAN_ID", plan.id) // pass ID to next screen
-                startActivity(intent)
-            }
-
-            // delete click
-            card.findViewById<Button>(R.id.btnDeletePlan).setOnClickListener {
-                mainPresenter.deletePlan(plan.id)
-                mainPresenter.loadDashboard() // refresh list immediately
-
-                toast("Plan successfully deleted!")
             }
         }
 
+        // ungrouped plans
+        val ungroupedPlans = plans.filter {it.id !in allGroupedIds}
+        if(ungroupedPlans.isNotEmpty()) {
+            findViewById<TextView>(R.id.tvNoUngroupedPlans).visibility = android.view.View.GONE
+            ungroupedPlans.forEach { plan ->
+                val card = createPlanCard(plan, ungroupedContainer)
+                ungroupedContainer.addView(card)
+            }
+        } else {
+            findViewById<TextView>(R.id.tvNoUngroupedPlans).visibility = android.view.View.VISIBLE
+        }
 
     }
 
@@ -152,6 +148,102 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun toCreatePlan() {
         val intent = Intent(this, PlanActivity::class.java)
         startActivity(intent)
+    }
+
+    // all card operations placed here instead
+    private fun createPlanCard(plan: Plan, parent: android.view.ViewGroup): android.view.View {
+        // inflate card layout
+        val card = layoutInflater.inflate(R.layout.item_plan, parent, false)
+
+        // progress bar logic
+        val spent = plan.expenses.sumOf { it.amount }
+        val remaining = plan.totalBudget - spent
+        val progressPercent = if (plan.totalBudget > 0.0) ((spent / plan.totalBudget) * 100).toInt() else 0
+
+
+        // bind cards
+        card.findViewById<TextView>(R.id.tvPlanName).text = plan.name
+
+        // budgets
+        card.findViewById<TextView>(R.id.tvRemainingBudget).text = "Remaining Budget: $remaining"
+        card.findViewById<TextView>(R.id.tvTotalBudget).text = "Total Budget: ${plan.totalBudget}"
+
+        // dates
+        card.findViewById<TextView>(R.id.tvStartingDate).text = "Starting Date: ${plan.startDate}"
+        card.findViewById<TextView>(R.id.tvEndDate).text = "End Date: ${plan.endDate}"
+
+        // pb
+        val pb = card.findViewById<ProgressBar>(R.id.pbBudget)
+        pb.progress = progressPercent
+
+
+
+        // edit click
+        card.setOnClickListener {
+            val intent = Intent(this, PlanActivity::class.java)
+            intent.putExtra("PLAN_ID", plan.id) // pass ID to next screen
+            startActivity(intent)
+        }
+
+        // delete click
+        card.findViewById<Button>(R.id.btnDeletePlan).setOnClickListener {
+            mainPresenter.deletePlan(plan.id)
+            mainPresenter.loadDashboard() // refresh list immediately
+
+            toast("Plan successfully deleted!")
+        }
+        return card
+    }
+
+    // dialog to let user pick plans for group
+    private fun showCreateGroupDialog() {
+        // check if plans have already been created
+        val allPlans = planModel.getAllPlans()
+        if(allPlans.isEmpty()) {
+            toast("Create a plan first!")
+            return
+        }
+
+        // init Builder that builds popup by piece
+        val builder = android.app.AlertDialog.Builder(this)
+        builder.setTitle("Create New Group")
+
+        // name input
+        val input = android.widget.EditText(this)
+        input.hint = "Group Name (e.g. Winter 1987)"
+        builder.setView(input)
+
+        // plan selection (creates checklist from extracted plan names)
+        val planNames = allPlans.map {it.name}.toTypedArray()
+        val selectedItems = BooleanArray(allPlans.size) {false}
+
+        // updates checklist status based on user
+        builder.setMultiChoiceItems(planNames, selectedItems) {_, which, isChecked ->
+            selectedItems[which] = isChecked
+        }
+
+        // finds id of plans ticked True by user
+        builder.setPositiveButton("Create") { _, _ ->
+            val groupName = input.text.toString()
+            val selectedPlanIds = allPlans.filterIndexed { index, _ -> selectedItems[index] }.map { it.id }
+
+            // validation, create new Plan group w/ ID, and send to Model to be saved to sharedPref
+            if(groupName.isNotEmpty() && selectedPlanIds.isNotEmpty()) {
+                val newGroup = PlanGroup(
+                    id = java.util.UUID.randomUUID().toString(),
+                    name = groupName,
+                    planIds = selectedPlanIds
+                )
+                planModel.saveGroup(newGroup)
+                mainPresenter.loadDashboard() // refreshes list
+                toast("Group ${groupName} created!")
+            } else {
+                toast("Please enter a name and select desired plans")
+            }
+        }
+
+        builder.setNegativeButton("Cancel", null)
+        builder.show()
     }
 
 }

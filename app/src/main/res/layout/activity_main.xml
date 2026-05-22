@@ -76,6 +76,17 @@
                 android:shadowRadius="10">
             </TextView>
 
+            <Button
+                android:id="@+id/btnCreateGroup"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:backgroundTint="#D15E00"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginTop="10dp"
+                android:text="+ Create Group"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+
             <TextView
                 android:id="@+id/tvNoGroupedPlans"
                 android:layout_width="wrap_content"

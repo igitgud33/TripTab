@@ -131,6 +131,7 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="Contact No."
+                        android:textSize="14dp"
                         android:textStyle="bold"
                         android:paddingStart="20dp" />
 

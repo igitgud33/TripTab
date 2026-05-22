@@ -11,6 +11,12 @@ data class Plan(
     val expenses: List<Expense>
 )
 
+data class PlanGroup(
+    val id: String,
+    val name: String,
+    val planIds: List<String> = emptyList()
+)
+
 data class Expense(
     val description: String,
     val amount: Double,
