@@ -10,6 +10,7 @@ interface ProfileContract {
 
     interface Presenter {
         fun loadUserData()
+        fun updateProfile(user: User)
         fun logOut()
     }
 }

@@ -45,8 +45,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
                 birthDate = getEditTextValue(R.id.registerBirthDate),
                 phoneNo = getEditTextValue(R.id.registerPhoneNumber),
                 password = getEditTextValue(R.id.registerPassword)
-
-            )
+                )
             // hand to presenter
             registerPresenter.registerUser(newUser)
 

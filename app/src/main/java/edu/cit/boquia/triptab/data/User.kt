@@ -10,4 +10,4 @@ data class User (
     var phoneNo: String = "",
     var password: String = "",
     var profileImageUri: String? = null
-    )
+)
