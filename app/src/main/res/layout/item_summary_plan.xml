@@ -23,14 +23,6 @@
         android:textSize="15dp"
         android:textStyle="bold"/>
 
-    <ImageView
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:src="@drawable/baseline_arrow_back_24"
-        android:rotation="-90"
-        android:layout_marginEnd="16dp"
-        android:alpha="0.5"/>
-
     <TextView
         android:id="@+id/tvPlanValue"
         android:layout_width="80dp"
@@ -44,6 +36,7 @@
         android:id="@+id/tvPlanPercent"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
         android:text="0%"
         android:gravity="end"
         android:textColor="@color/black"

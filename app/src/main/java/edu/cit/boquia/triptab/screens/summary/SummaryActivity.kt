@@ -82,7 +82,7 @@ class SummaryActivity : AppCompatActivity(), SummaryContract.View{
                 itemView.findViewById<TextView>(R.id.tvPlanValue).text = planTotal.toCurrency
 
                 val percent = if(totalExpenses > 0) (planTotal / totalExpenses * 100) else 0.0
-                itemView.findViewById<TextView>(R.id.tvPlanPercent).text = percent.toCurrency
+                itemView.findViewById<TextView>(R.id.tvPlanPercent).text = "${String.format("%.2f", percent)}%"
 
                 container.addView(itemView)
             }

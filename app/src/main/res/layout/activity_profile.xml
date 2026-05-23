@@ -23,14 +23,6 @@
                 android:layout_weight="1"
                 android:background="#EB5600">
 
-                <ImageView
-                    android:id="@+id/logoImage"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:src="@drawable/logo" />
-
             </FrameLayout>
 
             <LinearLayout
