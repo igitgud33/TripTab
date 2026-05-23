@@ -16,6 +16,7 @@ import edu.cit.boquia.triptab.data.User
 import edu.cit.boquia.triptab.screens.summary.SummaryActivity
 import edu.cit.boquia.triptab.screens.login.LoginActivity
 import edu.cit.boquia.triptab.screens.main.MainActivity
+import edu.cit.boquia.triptab.utils.setupBottomNavigation
 import edu.cit.boquia.triptab.utils.toast
 
 class ProfileActivity : AppCompatActivity(), ProfileContract.View {
@@ -78,34 +79,7 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View {
             toast("Profile updated successfully!")
         }
 
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav_profile)
-        bottomNav.selectedItemId = R.id.nav_profile // highlights profile icon
-
-        bottomNav.setOnItemSelectedListener { item ->
-            when(item.itemId) {
-                R.id.nav_home -> {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-
-                    // custom transition animation (FYI: METHOD USED HERE IS DEPRECATED IN CURRENT VERSION)
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-                    true
-                }
-                R.id.nav_summary -> {
-                    val intent = Intent(this, SummaryActivity::class.java)
-                    startActivity(intent)
-
-                    // custom transition animation (FYI: METHOD USED HERE IS DEPRECATED IN CURRENT VERSION)
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-                    true
-                }
-
-                R.id.nav_profile -> {
-                    true
-                }
-                else -> false
-            }
-        }
+        setupBottomNavigation(R.id.bottom_nav_profile, R.id.nav_profile)
 
     }
 

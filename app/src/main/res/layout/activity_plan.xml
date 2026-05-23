@@ -15,7 +15,7 @@
             android:id="@+id/bgImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FF4433"/>
+            android:background="#D15E00"/>
 
         <ImageButton
             android:id="@+id/btnPlanBack"
@@ -45,7 +45,7 @@
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_nav"
         android:layout_below="@id/topSection"
-        android:background="#FF7F50"
+        android:background="#E67E22"
         android:fillViewport="true">
 
         <LinearLayout

@@ -16,7 +16,9 @@ import edu.cit.boquia.triptab.screens.profile.ProfileActivity
 import edu.cit.boquia.triptab.R
 import edu.cit.boquia.triptab.app.CustomApp
 import edu.cit.boquia.triptab.screens.summary.SummaryActivity
+import edu.cit.boquia.triptab.utils.setupBottomNavigation
 import edu.cit.boquia.triptab.utils.showDatePicker
+import edu.cit.boquia.triptab.utils.toCurrency
 import edu.cit.boquia.triptab.utils.toast
 
 class PlanActivity : AppCompatActivity(), PlanContract.View {
@@ -87,7 +89,7 @@ class PlanActivity : AppCompatActivity(), PlanContract.View {
         }
 
 
-        setupBottomNavigation()
+        setupBottomNavigation(R.id.bottom_nav, R.id.nav_home)
     }
 
     // Function that adds new expense row container using expense_row.xml
@@ -136,8 +138,8 @@ class PlanActivity : AppCompatActivity(), PlanContract.View {
         val remaining = budget - totalExp
 
         // update fields in Budget Overview
-        totalExpenses.setText(String.format("%.2f", totalExp))
-        remainingBudget.setText(String.format("%.2f", remaining))
+        totalExpenses.setText(totalExp.toCurrency)
+        remainingBudget.setText(remaining.toCurrency)
     }
 
     // actual function to save the plan

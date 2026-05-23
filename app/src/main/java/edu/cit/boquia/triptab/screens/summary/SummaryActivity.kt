@@ -22,6 +22,8 @@ import edu.cit.boquia.triptab.screens.main.MainActivity
 import edu.cit.boquia.triptab.screens.plan.Plan
 import edu.cit.boquia.triptab.screens.plan.PlanModel
 import edu.cit.boquia.triptab.screens.profile.ProfileActivity
+import edu.cit.boquia.triptab.utils.setupBottomNavigation
+import edu.cit.boquia.triptab.utils.toCurrency
 
 class SummaryActivity : AppCompatActivity(), SummaryContract.View{
     private lateinit var presenter: SummaryContract.Presenter
@@ -37,33 +39,7 @@ class SummaryActivity : AppCompatActivity(), SummaryContract.View{
         presenter = SummaryPresenter(this, planModel)
         presenter.loadSummary()
 
-
-
-
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav_summary)
-        bottomNav.selectedItemId = R.id.nav_summary // highlights summary icon
-        bottomNav.setOnItemSelectedListener { item ->
-            when(item.itemId) {
-                R.id.nav_home -> {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-                    true
-                }
-                R.id.nav_summary -> {
-                    true
-                }
-
-                R.id.nav_profile -> {
-                    val intent = Intent(this, ProfileActivity::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-                    true
-                }
-
-                else -> false
-            }
-        }
+        setupBottomNavigation(R.id.bottom_nav_summary, R.id.nav_summary)
 
     }
 
@@ -103,10 +79,10 @@ class SummaryActivity : AppCompatActivity(), SummaryContract.View{
                 // set plan color, name, value, & %
                 itemView.findViewById<android.view.View>(R.id.vPlanColor).setBackgroundColor(color)
                 itemView.findViewById<TextView>(R.id.tvPlanName).text = plan.name
-                itemView.findViewById<TextView>(R.id.tvPlanValue).text = "₱ ${String.format("%.2f", planTotal)}"
+                itemView.findViewById<TextView>(R.id.tvPlanValue).text = planTotal.toCurrency
 
                 val percent = if(totalExpenses > 0) (planTotal / totalExpenses * 100) else 0.0
-                itemView.findViewById<TextView>(R.id.tvPlanPercent).text = "${String.format("%.2f", percent)}%"
+                itemView.findViewById<TextView>(R.id.tvPlanPercent).text = percent.toCurrency
 
                 container.addView(itemView)
             }

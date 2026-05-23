@@ -47,24 +47,4 @@ class PlanModel(app: CustomApp) {
         return getAllPlans().find {it.id == id}
     }
 
-    // plan groups
-    fun getAllGroups(): List<PlanGroup> {
-        val json = sharedPref.getString("SAVED_GROUPS", null) ?: return emptyList()
-        val type = object: TypeToken<List<PlanGroup>>() {}.type
-        return gson.fromJson(json, type)
-    }
-
-    fun saveGroup(group: PlanGroup) {
-        val allGroups = getAllGroups().toMutableList()
-        allGroups.add(group)
-        sharedPref.edit { putString("SAVED_GROUPS", gson.toJson(allGroups)) }
-    }
-
-    fun deleteGroup(groupId: String) {
-        val allGroups = getAllGroups().toMutableList()
-        allGroups.removeAll {it.id == groupId}
-
-        val json = gson.toJson(allGroups)
-        sharedPref.edit().putString("SAVED_GROUPS", json).apply()
-    }
 }

@@ -1,5 +1,6 @@
 package edu.cit.boquia.triptab.screens.main
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -17,13 +18,18 @@ import edu.cit.boquia.triptab.screens.plan.Plan
 import edu.cit.boquia.triptab.screens.summary.SummaryActivity
 import edu.cit.boquia.triptab.screens.plan.PlanActivity
 import edu.cit.boquia.triptab.screens.plan.PlanGroup
+import edu.cit.boquia.triptab.screens.plan.PlanGroupModel
 import edu.cit.boquia.triptab.screens.plan.PlanModel
+import edu.cit.boquia.triptab.utils.setupBottomNavigation
+import edu.cit.boquia.triptab.utils.showConfirmationDialog
+import edu.cit.boquia.triptab.utils.toCurrency
 import edu.cit.boquia.triptab.utils.toast
 import kotlin.collections.forEach
 
 class MainActivity : AppCompatActivity(), MainContract.View {
     private lateinit var mainPresenter: MainContract.Presenter
     private lateinit var planModel: PlanModel
+    private lateinit var planGroupModel: PlanGroupModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +37,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         setContentView(R.layout.activity_main)
 
         planModel = PlanModel(application as CustomApp)
+        planGroupModel = PlanGroupModel(application as CustomApp)
         mainPresenter = MainPresenter(this, planModel)
 
 
@@ -44,35 +51,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             showCreateGroupDialog()
         }
 
-
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
-        bottomNav.selectedItemId = R.id.nav_home // highlights home icon
-
-        bottomNav.setOnItemSelectedListener { item ->
-            when(item.itemId) {
-                R.id.nav_home -> {
-                    true
-                }
-                R.id.nav_summary -> {
-                    val intent = Intent(this, SummaryActivity::class.java)
-                    startActivity(intent)
-
-                    // custom transition animation (FYI: METHOD USED HERE IS DEPRECATED IN CURRENT VERSION)
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-                    true
-                }
-
-                R.id.nav_profile -> {
-                    val intent = Intent(this, ProfileActivity::class.java)
-                    startActivity(intent)
-
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-
-                    true
-                }
-                else -> false
-            }
-        }
+        setupBottomNavigation(R.id.bottom_nav, R.id.nav_home)
 
     }
 
@@ -85,7 +64,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun displayPlans(plans: List<Plan>) {
         // now considers both grouped & ungrouped
-        val groups = planModel.getAllGroups()
+        val groups = planGroupModel.getAllGroups()
 
         val groupedContainer = findViewById<LinearLayout>(R.id.containerGroupedPlans)
         val ungroupedContainer = findViewById<LinearLayout>(R.id.containerUngroupedPlans)
@@ -106,9 +85,16 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
                 // for deleting group
                 groupHeader.findViewById<Button>(R.id.btnDeleteGroup).setOnClickListener {
-                    planModel.deleteGroup(group.id)
-                    mainPresenter.loadDashboard()
-                    toast("Group ${group.name} dissolved")
+                    showConfirmationDialog(
+                        title = "Dissolve Group",
+                        message = "Are you sure you want to dissolve '${group.name}'? Individual plans will still be kept."
+                    ) {
+                        // only runs if 'Yes' clicked
+                        planGroupModel.deleteGroup(group.id)
+                        mainPresenter.loadDashboard()
+                        toast("Group ${group.name} dissolved")
+                    }
+
                 }
 
                 groupedContainer.addView(groupHeader)
@@ -151,6 +137,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     // all card operations placed here instead
+    @SuppressLint("SetTextI18n")
     private fun createPlanCard(plan: Plan, parent: android.view.ViewGroup): android.view.View {
         // inflate card layout
         val card = layoutInflater.inflate(R.layout.item_plan, parent, false)
@@ -165,8 +152,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         card.findViewById<TextView>(R.id.tvPlanName).text = plan.name
 
         // budgets
-        card.findViewById<TextView>(R.id.tvRemainingBudget).text = "Remaining Budget: ${String.format("%.2f", remaining)}"
-        card.findViewById<TextView>(R.id.tvTotalBudget).text = "Total Budget: ${String.format("%.2f", plan.totalBudget)}"
+        card.findViewById<TextView>(R.id.tvRemainingBudget).text = "Remaining Budget: ${remaining.toCurrency}"
+        card.findViewById<TextView>(R.id.tvTotalBudget).text = "Total Budget: ${plan.totalBudget.toCurrency}"
 
         // dates
         card.findViewById<TextView>(R.id.tvStartingDate).text = "Starting Date: ${plan.startDate}"
@@ -187,10 +174,17 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         // delete click
         card.findViewById<Button>(R.id.btnDeletePlan).setOnClickListener {
-            mainPresenter.deletePlan(plan.id)
-            mainPresenter.loadDashboard() // refresh list immediately
+            showConfirmationDialog(
+                title = "Delete Plan",
+                message = "Are you sure you want to delete '${plan.name}'? This cannot be undone."
+            ) {
+                // only runs if 'Yes' clicked
+                mainPresenter.deletePlan(plan.id)
+                mainPresenter.loadDashboard() // refresh list immediately
+                toast("Plan successfully deleted!")
+            }
 
-            toast("Plan successfully deleted!")
+
         }
         return card
     }
@@ -234,7 +228,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                     name = groupName,
                     planIds = selectedPlanIds
                 )
-                planModel.saveGroup(newGroup)
+                planGroupModel.saveGroup(newGroup)
                 mainPresenter.loadDashboard() // refreshes list
                 toast("Group ${groupName} created!")
             } else {
